@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarah's Sorted Spaces — Professional Organizing · Howard County, MD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sage: {
+              50:  '#f4f7f4',
+              100: '#e6ede6',
+              200: '#cddccd',
+              300: '#a8c5a0',
+              400: '#7da876',
+              500: '#5c8f55',
+              600: '#477241',
+              700: '#395b34',
+              800: '#30492c',
+              900: '#293d25',
+            },
+            cream: {
+              50:  '#fdfcfa',
+              100: '#faf7f2',
+              200: '#f4ede0',
+              300: '#ecdfc8',
+              400: '#e0c9a6',
+              500: '#d4b280',
+            },
+            wood: {
+              100: '#f5ede0',
+              200: '#ead5b8',
+              300: '#d9b98a',
+              400: '#c4956a',
+              500: '#a97848',
+              600: '#8b5e35',
+            },
+          },
+          fontFamily: {
+            display: ['Cormorant Garamond', 'Georgia', 'serif'],
+            body: ['DM Sans', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.7s ease both',
+            'fade-in': 'fadeIn 0.6s ease both',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(28px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background-color: #fdfcfa; color: #2e2e2b; }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999; opacity: 0.4;
+    }
+
+    .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    /* Scroll-triggered reveals */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* Nav */
+    nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+    /* Hero organic shape */
+    .hero-blob {
+      position: absolute;
+      border-radius: 60% 40% 50% 60% / 50% 60% 40% 50%;
+      background: radial-gradient(ellipse at 40% 40%, #cddccd 0%, #e6ede6 60%, transparent 100%);
+      animation: morph 14s ease-in-out infinite;
+    }
+    @keyframes morph {
+      0%,100% { border-radius: 60% 40% 50% 60% / 50% 60% 40% 50%; }
+      33%      { border-radius: 50% 60% 40% 50% / 60% 40% 55% 45%; }
+      66%      { border-radius: 40% 55% 60% 40% / 45% 55% 40% 60%; }
+    }
+
+    /* Section divider leaf */
+    .leaf-divider { display: flex; align-items: center; gap: 12px; }
+    .leaf-divider::before, .leaf-divider::after {
+      content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #a8c5a0, transparent);
+    }
+
+    /* Card hover lift */
+    .card-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card-lift:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+
+    /* Package card highlight */
+    .package-featured {
+      background: linear-gradient(150deg, #3a5e35 0%, #4d7a45 50%, #5c8f55 100%);
+    }
+
+    /* CTA button */
+    .btn-primary {
+      background: linear-gradient(135deg, #477241 0%, #5c8f55 100%);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(71,114,65,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(71,114,65,0.4);
+    }
+
+    /* Horizontal rule ornament */
+    .ornament { letter-spacing: 0.35em; font-size: 0.7rem; color: #7da876; text-transform: uppercase; }
+
+    /* Pain point icons */
+    .pain-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+
+    /* Photo placeholder */
+    .photo-placeholder {
+      background: linear-gradient(135deg, #e6ede6 0%, #f4ede0 50%, #ead5b8 100%);
+      position: relative; overflow: hidden;
+    }
+    .photo-placeholder::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1.5' fill='%23a8c5a0' opacity='0.4'/%3E%3C/svg%3E") repeat;
+    }
+
+    /* Wavy section break */
+    .wave-top { margin-top: -2px; display: block; }
+
+    /* Service zone card icon wrapper */
+    .zone-icon { transition: transform 0.3s ease; }
+    .card-lift:hover .zone-icon { transform: scale(1.12) rotate(-5deg); }
+
+    /* Star rating */
+    .stars { color: #c4956a; }
+
+    /* Mobile menu */
+    #mobile-menu { transition: max-height 0.35s ease, opacity 0.3s ease; }
+
+    /* Footer input */
+    .input-clean {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      transition: border-color 0.2s;
+    }
+    .input-clean::placeholder { color: rgba(255,255,255,0.45); }
+    .input-clean:focus { outline: none; border-color: #a8c5a0; }
+
+    .social-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.1);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .social-icon:hover { background: rgba(168,197,160,0.3); transform: translateY(-2px); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║           NAVIGATION            ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-cream-50/85 border-b border-cream-200/60 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-5 flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-full bg-sage-200 flex items-center justify-center">
+          <i data-lucide="leaf" class="w-4 h-4 text-sage-600"></i>
+        </div>
+        <div>
+          <span class="font-display text-lg font-semibold text-sage-800 leading-none">Sarah's</span>
+          <span class="font-body text-xs text-sage-500 tracking-widest uppercase block leading-none">Sorted Spaces</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center gap-7 text-sm font-medium text-stone-600">
+        <a href="#why" class="hover:text-sage-600 transition-colors">Why Organize</a>
+        <a href="#services" class="hover:text-sage-600 transition-colors">Services</a>
+        <a href="#packages" class="hover:text-sage-600 transition-colors">Packages</a>
+        <a href="#difference" class="hover:text-sage-600 transition-colors">Our Difference</a>
+        <a href="#contact" class="hover:text-sage-600 transition-colors">Contact</a>
+      </div>
+
+      <!-- CTA -->
+      <div class="hidden md:block">
+        <a href="#contact" class="btn-primary text-white text-sm font-medium px-5 py-2.5 rounded-full inline-block">
+          Book a Consult
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <button id="menu-btn" class="md:hidden p-2 rounded-lg text-sage-700" aria-label="Toggle menu">
+        <i data-lucide="menu" class="w-5 h-5" id="menu-icon"></i>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden max-h-0 opacity-0 overflow-hidden bg-cream-50">
+      <div class="px-5 py-4 flex flex-col gap-3 text-sm font-medium border-t border-cream-200">
+        <a href="#why" class="text-stone-600 hover:text-sage-600 py-1">Why Organize</a>
+        <a href="#services" class="text-stone-600 hover:text-sage-600 py-1">Services</a>
+        <a href="#packages" class="text-stone-600 hover:text-sage-600 py-1">Packages</a>
+        <a href="#difference" class="text-stone-600 hover:text-sage-600 py-1">Our Difference</a>
+        <a href="#contact" class="text-stone-600 hover:text-sage-600 py-1">Contact</a>
+        <a href="#contact" class="btn-primary text-white text-sm font-medium px-5 py-2.5 rounded-full text-center mt-1">
+          Book a Consult
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║            HERO                 ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <section id="home" class="relative min-h-screen flex items-center overflow-hidden pt-16 bg-cream-50">
+
+    <!-- Blobs -->
+    <div class="hero-blob w-[600px] h-[600px] -top-32 -right-32 opacity-60 absolute"></div>
+    <div class="hero-blob w-[400px] h-[400px] bottom-0 left-0 opacity-30 absolute" style="animation-delay:-7s; background: radial-gradient(ellipse, #ead5b8 0%, transparent 70%);"></div>
+
+    <div class="max-w-6xl mx-auto px-5 w-full py-24 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+
+        <!-- Copy -->
+        <div>
+          <p class="ornament mb-4 reveal">Howard County, MD · Professional Organizer</p>
+          <h1 class="font-display text-6xl md:text-7xl font-light leading-[1.05] text-sage-900 mb-6 reveal reveal-delay-1">
+            Your Home,<br/>
+            <em class="italic text-sage-600">Finally</em> at<br/>
+            Peace.
+          </h1>
+          <p class="text-stone-500 text-lg leading-relaxed mb-8 max-w-md reveal reveal-delay-2">
+            Clutter steals your time, your energy, and your calm. I create beautiful, lasting systems that let you reclaim the spaces — and the life — you deserve.
+          </p>
+          <div class="flex flex-wrap gap-3 reveal reveal-delay-3">
+            <a href="#contact" class="btn-primary text-white font-medium px-7 py-3.5 rounded-full inline-flex items-center gap-2 text-sm">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              Book a Free Consultation
+            </a>
+            <a href="#services" class="border border-sage-300 text-sage-700 font-medium px-7 py-3.5 rounded-full inline-flex items-center gap-2 text-sm hover:bg-sage-50 transition-colors">
+              Explore Services
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+
+          <!-- Trust bar -->
+          <div class="flex flex-wrap items-center gap-6 mt-10 reveal reveal-delay-4">
+            <div class="flex items-center gap-1.5">
+              <span class="stars text-lg">★★★★★</span>
+              <span class="text-xs text-stone-500 font-medium">50+ Happy Clients</span>
+            </div>
+            <div class="w-px h-5 bg-cream-300 hidden sm:block"></div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="map-pin" class="w-4 h-4 text-sage-500"></i>
+              <span class="text-xs text-stone-500 font-medium">Serving Howard County & Beyond</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero image mosaic -->
+        <div class="relative reveal reveal-delay-2">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="photo-placeholder rounded-3xl aspect-[3/4] flex items-end p-4 col-span-1">
+              <div class="bg-white/70 backdrop-blur-sm rounded-2xl px-3 py-2">
+                <p class="font-display text-sage-800 text-sm italic">"Kitchen Pantry · After"</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3">
+              <div class="photo-placeholder rounded-3xl aspect-square flex items-center justify-center">
+                <i data-lucide="package-open" class="w-10 h-10 text-sage-300"></i>
+              </div>
+              <div class="bg-white rounded-3xl p-4 shadow-sm border border-cream-200 flex flex-col gap-1">
+                <p class="text-xs text-stone-400 font-medium uppercase tracking-wider">This Week</p>
+                <p class="font-display text-sage-700 text-base font-medium italic">Closet Edit Complete ✓</p>
+                <p class="text-xs text-stone-400">Columbia, MD</p>
+              </div>
+              <div class="photo-placeholder rounded-3xl h-24"></div>
+            </div>
+          </div>
+
+          <!-- Floating badge -->
+          <div class="absolute -bottom-4 -left-4 bg-wood-400 text-white rounded-2xl px-4 py-3 shadow-lg">
+            <p class="text-xs font-medium opacity-80">Average result</p>
+            <p class="font-display text-2xl font-semibold">3× faster</p>
+            <p class="text-xs opacity-80">daily routines</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Wave -->
+    <svg class="wave-top absolute bottom-0 left-0 right-0 w-full" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f4f7f4"/>
+    </svg>
+  </section>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║         THE "WHY" SECTION       ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <section id="why" class="py-24 bg-sage-50">
+    <div class="max-w-6xl mx-auto px-5">
+
+      <div class="text-center mb-16">
+        <p class="ornament mb-3 reveal">The Problem</p>
+        <h2 class="font-display text-5xl md:text-6xl font-light text-sage-900 mb-4 reveal reveal-delay-1">
+          Clutter Costs More<br/><em class="italic text-sage-600">Than You Think</em>
+        </h2>
+        <p class="text-stone-500 max-w-xl mx-auto leading-relaxed reveal reveal-delay-2">
+          It's not laziness. It's a system problem. And the right systems change everything — from your mornings to your mindset.
+        </p>
+      </div>
+
+      <!-- Pain point cards -->
+      <div class="grid md:grid-cols-3 gap-6 mb-16">
+        <div class="bg-white rounded-3xl p-7 border border-cream-200 card-lift reveal reveal-delay-1">
+          <div class="pain-icon bg-red-50 mb-5">
+            <i data-lucide="clock" class="w-5 h-5 text-red-400"></i>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">Lost Time</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            The average person spends <strong class="text-stone-700">2.5 days per year</strong> searching for misplaced items. That's a vacation you're leaving on the table.
+          </p>
+        </div>
+        <div class="bg-white rounded-3xl p-7 border border-cream-200 card-lift reveal reveal-delay-2">
+          <div class="pain-icon bg-amber-50 mb-5">
+            <i data-lucide="brain" class="w-5 h-5 text-amber-500"></i>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">Mental Fog</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            Visual clutter constantly taxes your brain's cognitive load, leaving you feeling anxious, overwhelmed, and unable to fully relax — even at home.
+          </p>
+        </div>
+        <div class="bg-white rounded-3xl p-7 border border-cream-200 card-lift reveal reveal-delay-3">
+          <div class="pain-icon bg-blue-50 mb-5">
+            <i data-lucide="heart-crack" class="w-5 h-5 text-blue-400"></i>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">Stolen Peace</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            Your home should be your sanctuary. When it feels chaotic, it affects your relationships, sleep quality, and sense of self.
+          </p>
+        </div>
+      </div>
+
+      <!-- The solution banner -->
+      <div class="relative bg-sage-700 rounded-3xl p-10 md:p-14 overflow-hidden reveal">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-sage-600 rounded-full -translate-y-1/2 translate-x-1/2 opacity-40"></div>
+        <div class="absolute bottom-0 left-20 w-40 h-40 bg-sage-800 rounded-full translate-y-1/2 opacity-30"></div>
+        <div class="relative z-10 grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <p class="text-sage-200 text-sm font-medium uppercase tracking-widest mb-3">The Transformation</p>
+            <h3 class="font-display text-4xl md:text-5xl text-white font-light mb-4">
+              A Sorted Home is a<br/><em class="italic">Sorted Life.</em>
+            </h3>
+            <p class="text-sage-200 leading-relaxed text-sm">
+              When every item has a home, your mornings run smoother, your evenings are calmer, and your mind is finally free to focus on what actually matters to you.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+              <i data-lucide="zap" class="w-6 h-6 text-cream-300 mb-3"></i>
+              <p class="text-white font-medium text-sm mb-1">Faster Routines</p>
+              <p class="text-sage-200 text-xs">Morning & evening tasks done in half the time</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+              <i data-lucide="smile" class="w-6 h-6 text-cream-300 mb-3"></i>
+              <p class="text-white font-medium text-sm mb-1">Less Stress</p>
+              <p class="text-sage-200 text-xs">Clients report immediate sense of relief</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+              <i data-lucide="repeat" class="w-6 h-6 text-cream-300 mb-3"></i>
+              <p class="text-white font-medium text-sm mb-1">Lasting Systems</p>
+              <p class="text-sage-200 text-xs">Designed for real life — not just the reveal day</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+              <i data-lucide="home" class="w-6 h-6 text-cream-300 mb-3"></i>
+              <p class="text-white font-medium text-sm mb-1">Love Your Home</p>
+              <p class="text-sage-200 text-xs">Reclaim spaces you'd forgotten you had</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║         CORE SERVICES           ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <section id="services" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-5">
+
+      <div class="text-center mb-16">
+        <p class="ornament mb-3 reveal">What We Do</p>
+        <h2 class="font-display text-5xl md:text-6xl font-light text-sage-900 mb-4 reveal reveal-delay-1">
+          Every Zone,<br/><em class="italic text-sage-600">Transformed</em>
+        </h2>
+        <p class="text-stone-500 max-w-xl mx-auto leading-relaxed reveal reveal-delay-2">
+          From the kitchen junk drawer to a full home overhaul, we tailor every session to your space, your style, and the way your family actually lives.
+        </p>
+      </div>
+
+      <!-- Residential Zones -->
+      <div class="mb-14">
+        <div class="leaf-divider mb-8 reveal">
+          <span class="ornament px-4">Residential Zones</span>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5">
+
+          <!-- Kitchen / Pantry -->
+          <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 card-lift group reveal reveal-delay-1">
+            <div class="zone-icon w-12 h-12 bg-wood-100 rounded-2xl flex items-center justify-center mb-5">
+              <i data-lucide="utensils-crossed" class="w-5 h-5 text-wood-500"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">Kitchen & Pantry</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Countertop clearing, deep pantry categorization, drawer inserts, expiry audits, and a system that makes meal prep effortless.
+            </p>
+            <ul class="text-xs text-stone-400 space-y-1.5">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Pantry zone mapping</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Cabinet & drawer systems</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Custom label sets</li>
+            </ul>
+          </div>
+
+          <!-- The Closet Edit -->
+          <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 card-lift group reveal reveal-delay-2">
+            <div class="zone-icon w-12 h-12 bg-sage-100 rounded-2xl flex items-center justify-center mb-5">
+              <i data-lucide="shirt" class="w-5 h-5 text-sage-600"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">The Closet Edit</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              A wardrobe that works for your life, not against it. Category sorting, seasonal rotation systems, and donation curation.
+            </p>
+            <ul class="text-xs text-stone-400 space-y-1.5">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Clothing category audit</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Seasonal storage plan</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Donation coordination</li>
+            </ul>
+          </div>
+
+          <!-- Family Hubs -->
+          <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 card-lift group reveal reveal-delay-3">
+            <div class="zone-icon w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-5">
+              <i data-lucide="baby" class="w-5 h-5 text-blue-400"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">Family Hubs</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Playrooms and mudrooms that kids can actually maintain. Fun, functional, and built for real-family chaos.
+            </p>
+            <ul class="text-xs text-stone-400 space-y-1.5">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Playroom sorting & zones</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Mudroom drop-zone setup</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Kid-friendly label systems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specialized Services -->
+      <div>
+        <div class="leaf-divider mb-8 reveal">
+          <span class="ornament px-4">Specialized Services</span>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5">
+
+          <!-- Home Office -->
+          <div class="bg-sage-50 rounded-3xl p-7 border border-sage-100 card-lift group reveal reveal-delay-1">
+            <div class="zone-icon w-12 h-12 bg-sage-100 rounded-2xl flex items-center justify-center mb-5">
+              <i data-lucide="monitor" class="w-5 h-5 text-sage-600"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">Home Office & Digital</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Physical desk systems plus digital file structure, inbox zero strategies, and paperless workflows that stick.
+            </p>
+            <ul class="text-xs text-stone-400 space-y-1.5">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Desk & paper filing</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Digital folder architecture</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Document shredding guide</li>
+            </ul>
+          </div>
+
+          <!-- Move Management -->
+          <div class="bg-sage-50 rounded-3xl p-7 border border-sage-100 card-lift group reveal reveal-delay-2">
+            <div class="zone-icon w-12 h-12 bg-wood-100 rounded-2xl flex items-center justify-center mb-5">
+              <i data-lucide="package" class="w-5 h-5 text-wood-500"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">Move Management</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Stress-free packing that protects what matters, and an unpacking service that has your new home feeling like <em>home</em> on day one.
+            </p>
+            <ul class="text-xs text-stone-400 space-y-1.5">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Strategic packing plan</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Full unpack & setup</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> New-home system design</li>
+            </ul>
+          </div>
+
+          <!-- Life Transitions -->
+          <div class="bg-sage-50 rounded-3xl p-7 border border-sage-100 card-lift group reveal reveal-delay-3">
+            <div class="zone-icon w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center mb-5">
+              <i data-lucide="heart" class="w-5 h-5 text-pink-400"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold text-sage-900 mb-2">Life Transitions</h3>
+            <p class="text-stone-500 text-sm leading-relaxed mb-4">
+              Nursery prep for new parents, compassionate downsizing support, and estate organization handled with care and respect.
+            </p>
+            <ul class="text-xs text-stone-400 space-y-1.5">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Nursery planning & setup</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Compassionate downsizing</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-sage-500"></i> Estate sorting support</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║         SERVICE PACKAGES        ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <section id="packages" class="py-24 bg-cream-100">
+    <div class="max-w-5xl mx-auto px-5">
+
+      <div class="text-center mb-14">
+        <p class="ornament mb-3 reveal">Pricing</p>
+        <h2 class="font-display text-5xl md:text-6xl font-light text-sage-900 mb-4 reveal reveal-delay-1">
+          Choose Your<br/><em class="italic text-sage-600">Starting Point</em>
+        </h2>
+        <p class="text-stone-500 max-w-lg mx-auto leading-relaxed reveal reveal-delay-2">
+          Every home is different. These packages are starting frameworks — we'll customize to your space and goals on our free call.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- The Refresh -->
+        <div class="bg-white rounded-3xl p-8 border border-cream-200 flex flex-col card-lift reveal reveal-delay-1">
+          <div class="w-10 h-10 bg-cream-200 rounded-xl flex items-center justify-center mb-6">
+            <i data-lucide="sparkles" class="w-5 h-5 text-wood-500"></i>
+          </div>
+          <p class="text-xs font-medium text-stone-400 uppercase tracking-widest mb-1">The</p>
+          <h3 class="font-display text-3xl font-semibold text-sage-900 mb-1">Refresh</h3>
+          <p class="text-sm text-stone-400 mb-5">4-Hour Session</p>
+          <div class="text-4xl font-display font-light text-sage-800 mb-1">$299<span class="text-lg text-stone-400">/session</span></div>
+          <p class="text-xs text-stone-400 mb-7">Perfect for one focused zone</p>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2.5 text-sm text-stone-600">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-500 mt-0.5 shrink-0"></i>
+              4 focused hours in one zone
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-stone-600">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-500 mt-0.5 shrink-0"></i>
+              Sort, declutter & organize
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-stone-600">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-500 mt-0.5 shrink-0"></i>
+              Product recommendations
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-stone-600">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-500 mt-0.5 shrink-0"></i>
+              Before & after photos
+            </li>
+          </ul>
+          <a href="#contact" class="border border-sage-300 text-sage-700 text-sm font-medium px-6 py-3 rounded-full text-center hover:bg-sage-50 transition-colors">
+            Book The Refresh
+          </a>
+        </div>
+
+        <!-- The Transformation — FEATURED -->
+        <div class="package-featured rounded-3xl p-8 flex flex-col card-lift relative reveal reveal-delay-2 shadow-xl shadow-sage-200">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+            <span class="bg-wood-400 text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-sm">Most Popular</span>
+          </div>
+          <div class="w-10 h-10 bg-white/15 rounded-xl flex items-center justify-center mb-6">
+            <i data-lucide="wand-2" class="w-5 h-5 text-white"></i>
+          </div>
+          <p class="text-xs font-medium text-sage-200 uppercase tracking-widest mb-1">The</p>
+          <h3 class="font-display text-3xl font-semibold text-white mb-1">Transformation</h3>
+          <p class="text-sm text-sage-200 mb-5">Full-Day Session (7–8 hrs)</p>
+          <div class="text-4xl font-display font-light text-white mb-1">$599<span class="text-lg text-sage-200">/session</span></div>
+          <p class="text-xs text-sage-200 mb-7">Ideal for a major space overhaul</p>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2.5 text-sm text-white">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-200 mt-0.5 shrink-0"></i>
+              Full-day dedicated session
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-white">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-200 mt-0.5 shrink-0"></i>
+              Multi-zone project scope
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-white">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-200 mt-0.5 shrink-0"></i>
+              Custom labeling included
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-white">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-200 mt-0.5 shrink-0"></i>
+              Donation drop-off coordinated
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-white">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-200 mt-0.5 shrink-0"></i>
+              30-day follow-up check-in
+            </li>
+          </ul>
+          <a href="#contact" class="bg-white text-sage-700 text-sm font-semibold px-6 py-3 rounded-full text-center hover:bg-cream-50 transition-colors shadow-sm">
+            Book The Transformation
+          </a>
+        </div>
+
+        <!-- The Maintenance Subscription -->
+        <div class="bg-white rounded-3xl p-8 border border-cream-200 flex flex-col card-lift reveal reveal-delay-3">
+          <div class="w-10 h-10 bg-sage-50 rounded-xl flex items-center justify-center mb-6">
+            <i data-lucide="refresh-cw" class="w-5 h-5 text-sage-600"></i>
+          </div>
+          <p class="text-xs font-medium text-stone-400 uppercase tracking-widest mb-1">The</p>
+          <h3 class="font-display text-3xl font-semibold text-sage-900 mb-1">Maintenance</h3>
+          <p class="text-sm text-stone-400 mb-5">Quarterly Subscription</p>
+          <div class="text-4xl font-display font-light text-sage-800 mb-1">$199<span class="text-lg text-stone-400">/qtr</span></div>
+          <p class="text-xs text-stone-400 mb-7">Keep the peace all year long</p>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2.5 text-sm text-stone-600">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-500 mt-0.5 shrink-0"></i>
+              4 quarterly check-in sessions
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-stone-600">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-500 mt-0.5 shrink-0"></i>
+              System tune-ups & resets
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-stone-600">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-500 mt-0.5 shrink-0"></i>
+              Seasonal wardrobe swaps
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-stone-600">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-500 mt-0.5 shrink-0"></i>
+              Priority scheduling access
+            </li>
+          </ul>
+          <a href="#contact" class="border border-sage-300 text-sage-700 text-sm font-medium px-6 py-3 rounded-full text-center hover:bg-sage-50 transition-colors">
+            Start Subscription
+          </a>
+        </div>
+
+      </div>
+
+      <p class="text-center text-xs text-stone-400 mt-6 reveal">All packages begin with a free 20-minute phone consultation. Supply shopping billed separately at cost.</p>
+    </div>
+  </section>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║       THE WHITE GLOVE DIFF      ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <section id="difference" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-5">
+
+      <div class="grid md:grid-cols-2 gap-14 items-center">
+
+        <!-- Left: Photo collage + quote -->
+        <div class="relative reveal">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="photo-placeholder rounded-3xl aspect-square"></div>
+            <div class="photo-placeholder rounded-3xl aspect-[3/4] mt-6"></div>
+            <div class="photo-placeholder rounded-3xl aspect-[3/4] -mt-6"></div>
+            <div class="photo-placeholder rounded-3xl aspect-square"></div>
+          </div>
+          <!-- Quote card -->
+          <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[80%] bg-white rounded-2xl p-5 shadow-xl border border-cream-200">
+            <div class="stars text-sm mb-2">★★★★★</div>
+            <p class="font-display text-base italic text-sage-800 leading-snug mb-2">
+              "Sarah transformed our chaos into something actually beautiful. I cried happy tears."
+            </p>
+            <p class="text-xs text-stone-400">— Jennifer M., Columbia, MD</p>
+          </div>
+        </div>
+
+        <!-- Right: Value props -->
+        <div>
+          <p class="ornament mb-3 reveal">The Difference</p>
+          <h2 class="font-display text-5xl font-light text-sage-900 mb-5 reveal reveal-delay-1">
+            The White Glove<br/><em class="italic text-sage-600">Experience</em>
+          </h2>
+          <p class="text-stone-500 leading-relaxed mb-8 reveal reveal-delay-2">
+            Not just organizing — a full-service, thoughtful experience designed to honor your home and your life. Every detail is handled so you don't have to think about a thing.
+          </p>
+
+          <div class="space-y-5">
+            <div class="flex items-start gap-4 reveal reveal-delay-1">
+              <div class="w-11 h-11 bg-wood-100 rounded-2xl flex items-center justify-center shrink-0">
+                <i data-lucide="truck" class="w-5 h-5 text-wood-500"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sage-900 mb-1">Donation Drop-offs Included</h4>
+                <p class="text-sm text-stone-500 leading-relaxed">I haul away and drop off your donations to local Howard County charities so you don't lift a finger.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 reveal reveal-delay-2">
+              <div class="w-11 h-11 bg-sage-100 rounded-2xl flex items-center justify-center shrink-0">
+                <i data-lucide="tag" class="w-5 h-5 text-sage-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sage-900 mb-1">Custom Labeling Systems</h4>
+                <p class="text-sm text-stone-500 leading-relaxed">Beautiful, cohesive label sets — printed or handwritten — that keep every family member on the same page.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 reveal reveal-delay-3">
+              <div class="w-11 h-11 bg-blue-50 rounded-2xl flex items-center justify-center shrink-0">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-blue-400"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sage-900 mb-1">Personal Shopping Service</h4>
+                <p class="text-sm text-stone-500 leading-relaxed">I source the exact bins, baskets, and storage solutions for your space and budget — billed at cost, no markup.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 reveal reveal-delay-4">
+              <div class="w-11 h-11 bg-pink-50 rounded-2xl flex items-center justify-center shrink-0">
+                <i data-lucide="camera" class="w-5 h-5 text-pink-400"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sage-900 mb-1">Before & After Documentation</h4>
+                <p class="text-sm text-stone-500 leading-relaxed">Every project is photographed so you can see the full transformation — and remember how to maintain it.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 reveal reveal-delay-5">
+              <div class="w-11 h-11 bg-amber-50 rounded-2xl flex items-center justify-center shrink-0">
+                <i data-lucide="lock" class="w-5 h-5 text-amber-500"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sage-900 mb-1">Total Confidentiality</h4>
+                <p class="text-sm text-stone-500 leading-relaxed">Your home is your sanctuary. Everything I see stays between us — always professional, always discreet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║        LOCAL CONNECTION         ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <section id="local" class="py-16 bg-sage-50">
+    <div class="max-w-5xl mx-auto px-5 text-center">
+      <p class="ornament mb-3 reveal">Proudly Local</p>
+      <h2 class="font-display text-4xl md:text-5xl font-light text-sage-900 mb-4 reveal reveal-delay-1">
+        Rooted in<br/><em class="italic text-sage-600">Howard County</em>
+      </h2>
+      <p class="text-stone-500 max-w-xl mx-auto mb-10 leading-relaxed reveal reveal-delay-2">
+        As a Howard County local, I know these neighborhoods, these homes, and these families. I'm not a franchise — I'm your neighbor.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 reveal reveal-delay-3">
+        <span class="bg-white border border-sage-200 text-sage-700 text-sm font-medium px-5 py-2.5 rounded-full flex items-center gap-2 shadow-sm">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage-500"></i> Elkridge
+        </span>
+        <span class="bg-white border border-sage-200 text-sage-700 text-sm font-medium px-5 py-2.5 rounded-full flex items-center gap-2 shadow-sm">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage-500"></i> Columbia
+        </span>
+        <span class="bg-white border border-sage-200 text-sage-700 text-sm font-medium px-5 py-2.5 rounded-full flex items-center gap-2 shadow-sm">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage-500"></i> Ellicott City
+        </span>
+        <span class="bg-white border border-sage-200 text-sage-700 text-sm font-medium px-5 py-2.5 rounded-full flex items-center gap-2 shadow-sm">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage-500"></i> Fulton
+        </span>
+        <span class="bg-white border border-sage-200 text-sage-700 text-sm font-medium px-5 py-2.5 rounded-full flex items-center gap-2 shadow-sm">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage-500"></i> Clarksville
+        </span>
+        <span class="bg-white border border-sage-200 text-sage-700 text-sm font-medium px-5 py-2.5 rounded-full flex items-center gap-2 shadow-sm">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage-500"></i> Catonsville
+        </span>
+        <span class="bg-sage-100 border border-sage-200 text-sage-600 text-sm px-5 py-2.5 rounded-full italic">
+          & surrounding areas
+        </span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║        TESTIMONIALS             ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <section class="py-20 bg-white overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="text-center mb-12 reveal">
+        <p class="ornament mb-3">Client Love</p>
+        <h2 class="font-display text-4xl font-light text-sage-900">Real Homes, <em class="italic text-sage-600">Real Results</em></h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 card-lift reveal reveal-delay-1">
+          <div class="stars text-base mb-3">★★★★★</div>
+          <p class="font-display text-base italic text-sage-800 leading-relaxed mb-4">"Our pantry went from a black hole to a Pinterest board. I actually enjoy cooking now. Worth every penny."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-wood-200 flex items-center justify-center text-wood-600 font-display font-semibold">A</div>
+            <div><p class="text-sm font-medium text-stone-700">Ashley R.</p><p class="text-xs text-stone-400">Ellicott City, MD</p></div>
+          </div>
+        </div>
+        <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 card-lift reveal reveal-delay-2">
+          <div class="stars text-base mb-3">★★★★★</div>
+          <p class="font-display text-base italic text-sage-800 leading-relaxed mb-4">"Sarah helped us prep our nursery and I felt completely calm going into our due date. The donation pickup was such a gift."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-sage-200 flex items-center justify-center text-sage-700 font-display font-semibold">M</div>
+            <div><p class="text-sm font-medium text-stone-700">Marcus & Tia B.</p><p class="text-xs text-stone-400">Columbia, MD</p></div>
+          </div>
+        </div>
+        <div class="bg-cream-50 rounded-3xl p-7 border border-cream-200 card-lift reveal reveal-delay-3">
+          <div class="stars text-base mb-3">★★★★★</div>
+          <p class="font-display text-base italic text-sage-800 leading-relaxed mb-4">"I was skeptical, but Sarah understood my home office needs immediately. My productivity has genuinely tripled."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-display font-semibold">D</div>
+            <div><p class="text-sm font-medium text-stone-700">David K.</p><p class="text-xs text-stone-400">Elkridge, MD</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║       CONTACT / FOOTER         ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <footer id="contact" class="bg-sage-900 text-white pt-20 pb-10">
+    <div class="max-w-6xl mx-auto px-5">
+
+      <div class="grid md:grid-cols-2 gap-14 mb-16">
+
+        <!-- Left: Info -->
+        <div>
+          <p class="ornament text-sage-400 mb-3 reveal">Get In Touch</p>
+          <h2 class="font-display text-5xl font-light text-white mb-5 leading-tight reveal reveal-delay-1">
+            Ready to Reclaim<br/><em class="italic text-sage-300">Your Space?</em>
+          </h2>
+          <p class="text-sage-300 leading-relaxed mb-8 reveal reveal-delay-2">
+            The first step is easy — a free 20-minute call to talk through your goals. No pressure, no obligation. Just clarity.
+          </p>
+
+          <div class="space-y-4 reveal reveal-delay-3">
+            <div class="flex items-center gap-3 text-sm text-sage-200">
+              <div class="w-9 h-9 bg-sage-700 rounded-xl flex items-center justify-center shrink-0">
+                <i data-lucide="mail" class="w-4 h-4 text-sage-300"></i>
+              </div>
+              hello@sarahssortedspaces.com
+            </div>
+            <div class="flex items-center gap-3 text-sm text-sage-200">
+              <div class="w-9 h-9 bg-sage-700 rounded-xl flex items-center justify-center shrink-0">
+                <i data-lucide="phone" class="w-4 h-4 text-sage-300"></i>
+              </div>
+              (443) 555-0192
+            </div>
+            <div class="flex items-center gap-3 text-sm text-sage-200">
+              <div class="w-9 h-9 bg-sage-700 rounded-xl flex items-center justify-center shrink-0">
+                <i data-lucide="map-pin" class="w-4 h-4 text-sage-300"></i>
+              </div>
+              Howard County, MD · In-home service available
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="flex gap-3 mt-8 reveal reveal-delay-4">
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-4 h-4 text-sage-200"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-4 h-4 text-sage-200"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Pinterest">
+              <i data-lucide="image" class="w-4 h-4 text-sage-200"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="TikTok">
+              <i data-lucide="video" class="w-4 h-4 text-sage-200"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div class="reveal reveal-delay-2">
+          <form class="space-y-4" onsubmit="handleSubmit(event)">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs text-sage-400 uppercase tracking-wider mb-1.5 block">First Name</label>
+                <input type="text" placeholder="Sarah" class="input-clean w-full rounded-xl px-4 py-3 text-sm" required />
+              </div>
+              <div>
+                <label class="text-xs text-sage-400 uppercase tracking-wider mb-1.5 block">Last Name</label>
+                <input type="text" placeholder="Johnson" class="input-clean w-full rounded-xl px-4 py-3 text-sm" required />
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-sage-400 uppercase tracking-wider mb-1.5 block">Email</label>
+              <input type="email" placeholder="you@email.com" class="input-clean w-full rounded-xl px-4 py-3 text-sm" required />
+            </div>
+            <div>
+              <label class="text-xs text-sage-400 uppercase tracking-wider mb-1.5 block">Phone (optional)</label>
+              <input type="tel" placeholder="(443) 555-0100" class="input-clean w-full rounded-xl px-4 py-3 text-sm" />
+            </div>
+            <div>
+              <label class="text-xs text-sage-400 uppercase tracking-wider mb-1.5 block">What Are You Looking To Tackle?</label>
+              <select class="input-clean w-full rounded-xl px-4 py-3 text-sm">
+                <option value="" disabled selected>Select a service...</option>
+                <option>Kitchen & Pantry</option>
+                <option>The Closet Edit</option>
+                <option>Family Hub (Playroom/Mudroom)</option>
+                <option>Home Office & Digital</option>
+                <option>Move Management</option>
+                <option>Life Transition (Nursery / Downsizing)</option>
+                <option>Not sure yet — let's chat!</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs text-sage-400 uppercase tracking-wider mb-1.5 block">Tell Me A Little More</label>
+              <textarea placeholder="What's the biggest challenge in your home right now?" rows="3" class="input-clean w-full rounded-xl px-4 py-3 text-sm resize-none"></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full text-white font-medium py-3.5 rounded-xl text-sm flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              Send My Free Consultation Request
+            </button>
+          </form>
+          <div id="form-success" class="hidden mt-4 bg-sage-700/50 border border-sage-600 rounded-2xl p-5 text-center">
+            <i data-lucide="check-circle" class="w-8 h-8 text-sage-300 mx-auto mb-2"></i>
+            <p class="text-white font-medium">Message sent! 🎉</p>
+            <p class="text-sage-300 text-sm mt-1">I'll be in touch within 24 hours to schedule your free consult.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-sage-700 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-sage-500">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 rounded-full bg-sage-700 flex items-center justify-center">
+            <i data-lucide="leaf" class="w-3 h-3 text-sage-300"></i>
+          </div>
+          <span>Sarah's Sorted Spaces · Howard County, MD</span>
+        </div>
+        <span>© 2025 Sarah's Sorted Spaces. All rights reserved.</span>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-sage-300 transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-sage-300 transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║            SCRIPTS              ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <script>
+    // Init Lucide icons
+    lucide.createIcons();
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Hero elements visible immediately
+    document.querySelectorAll('.reveal').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    let menuOpen = false;
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenu.style.maxHeight = '400px';
+        mobileMenu.style.opacity = '1';
+        menuIcon.setAttribute('data-lucide', 'x');
+      } else {
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity = '0';
+        menuIcon.setAttribute('data-lucide', 'menu');
+      }
+      lucide.createIcons();
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity = '0';
+        menuIcon.setAttribute('data-lucide', 'menu');
+        lucide.createIcons();
+      });
+    });
+
+    // Navbar scroll shrink
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('shadow-sm');
+      } else {
+        navbar.classList.remove('shadow-sm');
+      }
+    });
+
+    // Form submission
+    function handleSubmit(e) {
+      e.preventDefault();
+      e.target.style.display = 'none';
+      document.getElementById('form-success').classList.remove('hidden');
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
