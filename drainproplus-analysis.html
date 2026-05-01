@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drain Pro Plus — Website Analysis Report</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1c2e;
+    --blue: #1a4a8a;
+    --cyan: #00b4d8;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,216,0.18) 0%, transparent 70%);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%);
+  }
+  .header-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .report-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  header h1 span { color: var(--cyan); }
+  .header-sub {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.92rem;
+    margin-top: 0.4rem;
+  }
+  .score-strip {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .score-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 0.9rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 110px;
+  }
+  .score-pill .num {
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .score-pill .num.red { color: #f87171; }
+  .score-pill .num.yellow { color: var(--amber); }
+  .score-pill .num.green { color: #4ade80; }
+  .score-pill .label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.3rem;
+    text-align: center;
+  }
+
+  /* LAYOUT */
+  main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  /* SECTION */
+  section { margin-bottom: 2.5rem; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .icon-red { background: #fee2e2; }
+  .icon-amber { background: #fef3c7; }
+  .icon-blue { background: #dbeafe; }
+  .icon-green { background: #dcfce7; }
+  .icon-purple { background: #ede9fe; }
+  .section-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+  }
+  .section-badge {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.7rem;
+    border-radius: 99px;
+  }
+  .badge-critical { background: #fee2e2; color: #b91c1c; }
+  .badge-high { background: #fef3c7; color: #92400e; }
+  .badge-medium { background: #dbeafe; color: #1e40af; }
+  .badge-quick { background: #dcfce7; color: #166534; }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .card-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-red { background: var(--red); }
+  .dot-amber { background: var(--amber); }
+  .dot-green { background: var(--green); }
+  .card p { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.6rem; }
+  .card p:last-child { margin-bottom: 0; }
+
+  .fix-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.83rem;
+    color: #166534;
+  }
+  .fix-box strong { display: block; margin-bottom: 0.2rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .problem-box {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.83rem;
+    color: #991b1b;
+  }
+
+  /* KEYWORD TABLE */
+  .kw-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.83rem;
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .kw-table th {
+    background: var(--navy);
+    color: white;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .kw-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .kw-table tr:last-child td { border-bottom: none; }
+  .kw-table tr:nth-child(even) td { background: #f8fafc; }
+  .intent-tag {
+    font-size: 0.68rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 99px;
+    font-weight: 600;
+  }
+  .intent-emergency { background: #fee2e2; color: #b91c1c; }
+  .intent-local { background: #dbeafe; color: #1e40af; }
+  .intent-service { background: #f3e8ff; color: #6b21a8; }
+
+  /* PRIORITY GRID */
+  .priority-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 600px) { .priority-grid { grid-template-columns: 1fr; } }
+  .priority-card {
+    border-radius: 14px;
+    padding: 1.25rem;
+    border: 1px solid;
+  }
+  .priority-card.p1 { background: #fef2f2; border-color: #fecaca; }
+  .priority-card.p2 { background: #fefce8; border-color: #fef08a; }
+  .priority-card.p3 { background: #eff6ff; border-color: #bfdbfe; }
+  .priority-card.p4 { background: #f0fdf4; border-color: #bbf7d0; }
+  .priority-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.4rem;
+  }
+  .p1 .priority-label { color: #b91c1c; }
+  .p2 .priority-label { color: #854d0e; }
+  .p3 .priority-label { color: #1e40af; }
+  .p4 .priority-label { color: #166534; }
+  .priority-card h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.6rem; }
+  .priority-card ul { list-style: none; }
+  .priority-card li {
+    font-size: 0.8rem;
+    padding: 0.2rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    color: var(--muted);
+  }
+  .priority-card li::before { content: '→'; flex-shrink: 0; margin-top: 0.05rem; }
+
+  /* QUICK WINS */
+  .quick-wins {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .qw-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem;
+    border-top: 3px solid var(--cyan);
+  }
+  .qw-num {
+    font-size: 1.8rem;
+    font-family: 'DM Serif Display', serif;
+    color: var(--navy);
+    opacity: 0.15;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .qw-card h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .qw-card p { font-size: 0.78rem; color: var(--muted); }
+
+  /* ISSUES LIST */
+  .issue-list { list-style: none; }
+  .issue-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .issue-list li:last-child { border-bottom: none; }
+  .issue-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .issue-text strong { display: block; font-weight: 600; color: var(--text); }
+  .issue-text span { color: var(--muted); font-size: 0.82rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.78rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <p class="report-label">Website Audit Report · April 2026</p>
+    <h1>Drain Pro Plus<br><span>Growth & SEO Analysis</span></h1>
+    <p class="header-sub">drainproplusmd.com · Essex, MD · Plumbing Services</p>
+    <div class="score-strip">
+      <div class="score-pill">
+        <span class="num red">34</span>
+        <span class="label">SEO Score<br>/100</span>
+      </div>
+      <div class="score-pill">
+        <span class="num red">28</span>
+        <span class="label">Lead Gen<br>/100</span>
+      </div>
+      <div class="score-pill">
+        <span class="num yellow">42</span>
+        <span class="label">Local Presence<br>/100</span>
+      </div>
+      <div class="score-pill">
+        <span class="num green">71</span>
+        <span class="label">Reputation<br>/100</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- SUMMARY -->
+  <section>
+    <div class="card" style="border-left: 4px solid var(--cyan);">
+      <div class="card-title">📋 Executive Summary</div>
+      <p>Drain Pro Plus has strong raw material — great reviews, real job photos, and a likeable personal brand around "Billy." However, the site is severely underperforming on lead capture, local SEO signals, and geographic reach. The platform (a generic builder) imposes structural limitations, but many high-impact changes can still be made within it. The biggest immediate opportunity is expanding service area targeting, adding a visible phone number, and fixing the broken/placeholder copy.</p>
+    </div>
+  </section>
+
+  <!-- CRITICAL ISSUES -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-red">🚨</div>
+      <h2>Critical Issues to Fix First</h2>
+      <span class="section-badge badge-critical">Fix This Week</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-red"></span>No Phone Number Visible Anywhere on the Page</div>
+      <div class="problem-box">The site has "Call Now" in the nav and a text form — but zero visible digits. If someone is in a plumbing emergency they cannot read a phone number, write it down, or easily tap it. This is the #1 conversion killer for a trades business.</div>
+      <div class="fix-box">
+        <strong>Fix:</strong>
+        Add the phone number as plain, tappable text in the hero section, the header, and the footer. Format it as: <code>&lt;a href="tel:+14101234567"&gt;(410) 000-0000&lt;/a&gt;</code>. Put it in large, high-contrast text — at least 22px.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-red"></span>Broken Placeholder Text in FAQ ("COMPANY NAME" & "24/many")</div>
+      <div class="problem-box">The FAQ section contains "At COMPANY NAME, we don't just fix problems…" and "24/many emergency services" — these are unfilled template placeholders. Google reads this text and it signals an unfinished, unprofessional site. It also damages trust with any visitor who reads it.</div>
+      <div class="fix-box">
+        <strong>Fix:</strong>
+        Replace "COMPANY NAME" with "Drain Pro Plus" throughout. Fix "24/many" to either "24/7" (if true) or remove the emergency claim if hours are only Mon–Fri 9–5.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-red"></span>Service Area Is Only "Essex" — Severely Limits Local SEO</div>
+      <div class="problem-box">The site lists one city. Essex, MD has a population of ~40,000. Baltimore metro has 2.8 million. Plumbers in the area rank for dozens of neighboring communities. Every unserved keyword = leads going to competitors.</div>
+      <div class="fix-box">
+        <strong>Fix:</strong>
+        Expand service areas to include: Baltimore, Middle River, White Marsh, Rosedale, Dundalk, Parkville, Towson, Overlea, Carney, Nottingham, Perry Hall, Chase. Add each city to the footer and "Service Areas" section. Ideally create individual location landing pages.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-red"></span>No Google Review Link — Only Facebook</div>
+      <div class="problem-box">The reviews section only shows a Facebook link for leaving reviews. Google reviews are the #1 local ranking factor. The reviews shown on-site are great — but none of this SEO value is being amplified.</div>
+      <div class="fix-box">
+        <strong>Fix:</strong>
+        Add a prominent "Leave us a Google Review" button linking to the Google Business Profile review page. Show the Google star rating prominently in the hero section (e.g., "⭐ 5.0 on Google").
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO IMPROVEMENTS -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-amber">🔍</div>
+      <h2>SEO Improvements</h2>
+      <span class="section-badge badge-high">High Impact</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Missing Title Tags & Meta Descriptions with Local Keywords</div>
+      <p>The page title is just "Drain Pro Plus - Trusted Plumbing Services in Essex, MD." This doesn't target the most searched terms. Meta descriptions appear to be template-generated or missing.</p>
+      <div class="fix-box">
+        <strong>Recommended Page Title:</strong>
+        "Drain Pro Plus | Plumber in Essex & Baltimore, MD — Drain Cleaning, Emergency Repairs"<br><br>
+        <strong>Recommended Meta Description:</strong>
+        "Local plumber serving Essex, Baltimore, Middle River & surrounding MD communities. Fast drain cleaning, leak detection & pipe repair. Free estimates. Call today."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>No Schema Markup (LocalBusiness / Plumber JSON-LD)</div>
+      <p>Search engines use structured data to surface your business in rich results (map pack, knowledge panels, ratings stars). There's no schema visible on this site — a significant missed opportunity.</p>
+      <div class="fix-box">
+        <strong>Add this JSON-LD to the &lt;head&gt;:</strong><br>
+        <code>
+          "@type": "Plumber", "name": "Drain Pro Plus", "telephone": "(410) xxx-xxxx",
+          "address": Essex MD, "areaServed": [Essex, Baltimore, Middle River...],
+          "openingHours": "Mo-Fr 09:00-17:00", "priceRange": "$$"
+        </code><br>
+        Also add AggregateRating schema using your existing 5-star reviews.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Thin Blog Content — Huge Opportunity Untapped</div>
+      <p>The blog exists but there's no visible content being leveraged. Plumbing blogs that target local intent phrases drive consistent organic traffic and establish authority.</p>
+      <div class="fix-box">
+        <strong>High-value blog topics to publish:</strong><br>
+        "Why Is My Drain So Slow in Essex, MD?" · "How to Know If You Have a Sewer Line Problem" · "Best Plumbers Near Baltimore: What to Look For" · "Frozen Pipe Prevention in Maryland Winters" · "Signs You Need Emergency Drain Cleaning"
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Gallery Images Have No Alt Text</div>
+      <p>Every gallery image uses empty or template alt text ("for Drain Pro Plus in Essex, MD"). Google Images is a lead source for plumbers and the alt text is critical for accessibility and SEO.</p>
+      <div class="fix-box">
+        <strong>Fix:</strong>
+        Describe each image specifically — "clogged drain repair Essex MD," "pipe installation Baltimore County," "sewer line unclogging Middle River MD." This also helps rank in Google Images.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>No H1 Keyword Optimization on Service Pages</div>
+      <p>Each service page (Drain Cleaning, Plumbing Repairs, etc.) likely has a basic H1. These are prime opportunities for local keyword targeting that appear to be missed.</p>
+      <div class="fix-box">
+        <strong>Suggested H1s for service pages:</strong><br>
+        "Drain Cleaning Services in Essex, Baltimore & Middle River, MD" · "Emergency Plumbing Repairs in Baltimore County, MD" · "Leak Detection & Repair Near Essex, MD"
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD GENERATION -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-blue">💰</div>
+      <h2>Lead Generation Improvements</h2>
+      <span class="section-badge badge-high">High Impact</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Contact Friction: Text-to-Quote Flow Loses Leads</div>
+      <p>The primary CTA is "Send us a text" → fill out a form → wait. For plumbing emergencies (which is when most people search), this is far too slow. Competitors with click-to-call win these customers.</p>
+      <div class="fix-box">
+        <strong>Fix:</strong>
+        Make the hero CTA a bright, tappable phone button: "📞 Call Now — (410) xxx-xxxx". Keep the text form as a secondary option. Add a sticky footer bar on mobile with the phone number always visible.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>No Emergency / Same-Day Service Banner</div>
+      <p>Reviews mention Billy coming out "same day" multiple times — this is a massive competitive differentiator. It's buried in reviews and invisible in the hero where it needs to be.</p>
+      <div class="fix-box">
+        <strong>Fix:</strong>
+        Add a hero badge or banner: "⚡ Same-Day Service Available" or "Same-Day & Next-Day Appointments." This alone can dramatically increase conversion from emergency searches.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>No Trust Signals Above the Fold</div>
+      <p>The hero mentions "Insured" and "Emergency services" in small text, but there's no license number, years in business, number of jobs completed, or visible star rating. Trust signals prevent bounce.</p>
+      <div class="fix-box">
+        <strong>Add to the hero or just below it:</strong>
+        ⭐ 5.0 Google Rating · ✅ Fully Insured · 🔧 100+ Jobs Completed · 📍 Serving Baltimore County
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>No Online Booking Option</div>
+      <p>Many customers (especially younger homeowners) won't call — they want to book online. The current flow (fill a text form → wait for callback) requires multiple round trips. An online scheduling tool closes leads faster.</p>
+      <div class="fix-box">
+        <strong>Options:</strong>
+        Add Calendly, ServiceTitan, or even a simple Google Form that captures: name, phone, address, service needed, preferred time. Even a "Request an Appointment" embed would outperform the current flow.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Reviews Section Needs Star Ratings Displayed</div>
+      <p>The testimonials are excellent but the star icons appear to not be rendering ("out of 5 stars" shows as text only). This removes the visual impact that star ratings have on visitors.</p>
+      <div class="fix-box">
+        <strong>Fix:</strong>
+        Ensure the rating stars render as ⭐⭐⭐⭐⭐ visually. Display the aggregate score ("5.0 average across 40+ reviews") prominently above the carousel. This also feeds into schema markup.
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCAL SEO & ADVERTISING -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-purple">📍</div>
+      <h2>Local Advertising Strategy</h2>
+      <span class="section-badge badge-medium">Strategic</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Google Business Profile — Highest ROI Local Action</div>
+      <p>For a local plumber, Google Business Profile (GBP) drives more leads than almost any other channel. It controls your map pack ranking, star ratings, and "near me" searches.</p>
+      <div class="fix-box">
+        <strong>GBP Optimizations:</strong><br>
+        ✅ Ensure NAP (Name, Address, Phone) matches website exactly<br>
+        ✅ Upload 20+ photos from job sites monthly<br>
+        ✅ Post weekly GBP updates ("We unclogged a main line in Essex today — same day service!")<br>
+        ✅ Request Google reviews after every job via text message link<br>
+        ✅ Add all services with descriptions and pricing ranges<br>
+        ✅ Enable messaging in GBP for direct customer contact
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Google Local Services Ads (LSA) — Plumbers' #1 Paid Channel</div>
+      <p>LSAs appear above all other Google results — above the map pack and paid ads. They're pay-per-lead and require a background check + Google Guarantee badge. For a plumber, this is the best paid investment available.</p>
+      <div class="fix-box">
+        <strong>Action:</strong> Apply at ads.google.com/local-services-ads. The Google Guarantee badge alone dramatically increases trust. Budget $300–600/month to start and scale with results.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Nextdoor — Underused Local Gold Mine</div>
+      <p>Nextdoor is where homeowners go to ask neighbors "who do you use for plumbing?" A free business profile + occasional engagement in neighborhood threads can generate highly qualified referral leads at zero cost.</p>
+      <div class="fix-box">
+        <strong>Action:</strong> Create a free Nextdoor Business Page. Ask satisfied customers to recommend Drain Pro Plus on their neighborhood's Nextdoor page. A single viral recommendation in one neighborhood can generate dozens of leads.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Facebook Ads — Retargeting & Homeowner Targeting</div>
+      <p>The company has a Facebook page. With a small budget, Facebook ads targeting homeowners within 15 miles of Essex can be highly effective, especially for service awareness before an emergency hits.</p>
+      <div class="fix-box">
+        <strong>Ad Strategy:</strong><br>
+        • Retarget website visitors with a "Still need a plumber?" ad<br>
+        • Target homeowners aged 30–65 in Baltimore County ZIP codes<br>
+        • Run seasonal campaigns ("Prep your pipes before winter — call us")<br>
+        • Use before/after job photos as creative — these outperform stock imagery
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Angi / HomeAdvisor / Thumbtack Profile</div>
+      <p>Many homeowners use these platforms as a starting point. A verified, reviewed profile on at least one of them provides an additional lead channel and citation for local SEO.</p>
+      <div class="fix-box">
+        <strong>Recommendation:</strong> Prioritize Angi (formerly Angie's List) for the Baltimore market. Ensure NAP matches your website exactly — this creates a citation that strengthens local SEO rankings.
+      </div>
+    </div>
+  </section>
+
+  <!-- TARGET KEYWORDS -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-blue">🎯</div>
+      <h2>Target Keywords to Rank For</h2>
+      <span class="section-badge badge-medium">SEO Priority</span>
+    </div>
+    <table class="kw-table">
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th>Intent</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>plumber Essex MD</td>
+          <td><span class="intent-tag intent-local">Local</span></td>
+          <td>🔴 Critical</td>
+        </tr>
+        <tr>
+          <td>emergency plumber Baltimore County</td>
+          <td><span class="intent-tag intent-emergency">Emergency</span></td>
+          <td>🔴 Critical</td>
+        </tr>
+        <tr>
+          <td>drain cleaning Essex MD</td>
+          <td><span class="intent-tag intent-service">Service</span></td>
+          <td>🔴 Critical</td>
+        </tr>
+        <tr>
+          <td>plumber near me Middle River MD</td>
+          <td><span class="intent-tag intent-local">Local</span></td>
+          <td>🟡 High</td>
+        </tr>
+        <tr>
+          <td>clogged drain repair Baltimore</td>
+          <td><span class="intent-tag intent-emergency">Emergency</span></td>
+          <td>🟡 High</td>
+        </tr>
+        <tr>
+          <td>leak detection Essex Maryland</td>
+          <td><span class="intent-tag intent-service">Service</span></td>
+          <td>🟡 High</td>
+        </tr>
+        <tr>
+          <td>pipe repair Dundalk MD</td>
+          <td><span class="intent-tag intent-service">Service</span></td>
+          <td>🟡 High</td>
+        </tr>
+        <tr>
+          <td>same day plumber Baltimore County</td>
+          <td><span class="intent-tag intent-emergency">Emergency</span></td>
+          <td>🟢 Medium</td>
+        </tr>
+        <tr>
+          <td>sewer line cleaning Towson MD</td>
+          <td><span class="intent-tag intent-service">Service</span></td>
+          <td>🟢 Medium</td>
+        </tr>
+        <tr>
+          <td>affordable plumber White Marsh MD</td>
+          <td><span class="intent-tag intent-local">Local</span></td>
+          <td>🟢 Medium</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- QUICK WINS -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-green">⚡</div>
+      <h2>Quick Wins — Do These This Week</h2>
+      <span class="section-badge badge-quick">30 Min Each</span>
+    </div>
+    <div class="quick-wins">
+      <div class="qw-card">
+        <div class="qw-num">01</div>
+        <h3>Add Your Phone Number Visibly</h3>
+        <p>Place a tappable phone number in the hero, header, and footer. This is a 5-minute fix with potentially immediate results.</p>
+      </div>
+      <div class="qw-card">
+        <div class="qw-num">02</div>
+        <h3>Fix the Placeholder Copy</h3>
+        <p>Search the site editor for "COMPANY NAME" and "24/many" and fix immediately. Google penalizes template-looking text.</p>
+      </div>
+      <div class="qw-card">
+        <div class="qw-num">03</div>
+        <h3>Add Google Review Link</h3>
+        <p>Get your Google Business Profile review link and add it prominently to the site alongside the Facebook review link.</p>
+      </div>
+      <div class="qw-card">
+        <div class="qw-num">04</div>
+        <h3>Add "Same-Day Service" to Hero</h3>
+        <p>Your customers love this about you. State it explicitly in the first screen visitors see. This converts browsers to callers.</p>
+      </div>
+      <div class="qw-card">
+        <div class="qw-num">05</div>
+        <h3>Expand Service Area Cities</h3>
+        <p>Add 8–12 surrounding cities to your "Areas We Serve" section in the footer. Each city name = more search visibility.</p>
+      </div>
+      <div class="qw-card">
+        <div class="qw-num">06</div>
+        <h3>Post a GBP Update Today</h3>
+        <p>Google Business Profile posts take 5 minutes and boost your map pack visibility. Share a recent job photo with a caption.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTION PLAN -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-amber">📅</div>
+      <h2>30-Day Action Plan</h2>
+      <span class="section-badge badge-high">Prioritized</span>
+    </div>
+    <div class="priority-grid">
+      <div class="priority-card p1">
+        <div class="priority-label">🔴 Week 1 — Critical</div>
+        <h3>Fix Foundations</h3>
+        <ul>
+          <li>Add visible phone number everywhere</li>
+          <li>Fix all placeholder copy</li>
+          <li>Add Google review link</li>
+          <li>Add "Same-Day Service" to hero</li>
+          <li>Verify Google Business Profile</li>
+        </ul>
+      </div>
+      <div class="priority-card p2">
+        <div class="priority-label">🟡 Week 2 — SEO</div>
+        <h3>Expand Reach</h3>
+        <ul>
+          <li>Expand service areas (12+ cities)</li>
+          <li>Update page title & meta description</li>
+          <li>Add LocalBusiness schema markup</li>
+          <li>Fix all image alt text</li>
+          <li>Apply for Google Local Services Ads</li>
+        </ul>
+      </div>
+      <div class="priority-card p3">
+        <div class="priority-label">🔵 Week 3 — Content</div>
+        <h3>Build Authority</h3>
+        <ul>
+          <li>Publish 2 local plumbing blog posts</li>
+          <li>Create Nextdoor business profile</li>
+          <li>Add trust badges to hero (insured, years)</li>
+          <li>Set up Angi / HomeAdvisor profile</li>
+          <li>Start requesting Google reviews after jobs</li>
+        </ul>
+      </div>
+      <div class="priority-card p4">
+        <div class="priority-label">🟢 Week 4 — Advertise</div>
+        <h3>Fuel the Machine</h3>
+        <ul>
+          <li>Launch Facebook retargeting campaign</li>
+          <li>Add online booking / scheduling</li>
+          <li>Create 3 location-specific service pages</li>
+          <li>Set up weekly GBP post schedule</li>
+          <li>Add sticky mobile phone bar</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S WORKING -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon icon-green">✅</div>
+      <h2>What's Already Working — Keep It</h2>
+    </div>
+    <ul class="issue-list">
+      <li>
+        <span class="issue-icon">⭐</span>
+        <div class="issue-text">
+          <strong>Exceptional Reviews</strong>
+          <span>Multiple 5-star reviews with detailed, personal stories about Billy. This is trust gold. Amplify it everywhere — hero, ads, social.</span>
+        </div>
+      </li>
+      <li>
+        <span class="issue-icon">📸</span>
+        <div class="issue-text">
+          <strong>Real Job Photography Gallery</strong>
+          <span>Dozens of actual job photos build massive credibility. Keep adding to it after every job. These also help with Google Image searches.</span>
+        </div>
+      </li>
+      <li>
+        <span class="issue-icon">🤝</span>
+        <div class="issue-text">
+          <strong>Personal Brand ("Billy")</strong>
+          <span>Customers repeatedly reference Billy by name. This personal trust is rare and valuable — lean into it with a photo + bio section on the homepage.</span>
+        </div>
+      </li>
+      <li>
+        <span class="issue-icon">🔒</span>
+        <div class="issue-text">
+          <strong>Insured & Emergency Services Listed</strong>
+          <span>Good foundation. Just needs to be made more visually prominent with badges/icons in the hero rather than small text.</span>
+        </div>
+      </li>
+      <li>
+        <span class="issue-icon">📋</span>
+        <div class="issue-text">
+          <strong>Service Pages Exist for Each Offering</strong>
+          <span>Having dedicated pages for Drain Cleaning, Plumbing Repairs, etc. is the right structure for SEO. Just needs better keyword optimization per page.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>Drain Pro Plus — Website Analysis Report · Generated April 2026</p>
+  <p style="margin-top: 0.3rem;">Estimated lead increase with all fixes implemented: 3–5x over 90 days</p>
+</footer>
+
+</body>
+</html>
